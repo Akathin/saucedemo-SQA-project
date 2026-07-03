@@ -9,6 +9,9 @@ class InventoryPage {
         this.desc = '.inventory_item_desc';
         this.prices = '.inventory_item_price';
         this.addBtn = 'button.btn_inventory';
+
+        this.sortDropdown = this.page.locator('.product_sort_container');
+        
     }
 
     getItems() {
@@ -27,9 +30,11 @@ class InventoryPage {
         return this.page.locator(this.desc);
     }
 
-    getPrices() {
-        return this.page.locator(this.prices);
-    }
+    async getPrices() {
+  const prices = await this.page.locator('.inventory_item_price').allTextContents();
+
+  return prices.map(p => parseFloat(p.replace('$', '').trim()));
+}
 
     getAddButtons() {
         return this.page.locator(this.addBtn);
@@ -46,6 +51,21 @@ class InventoryPage {
     async clickFirstAddButton() {
         await this.getAddButtons().first().click();
     }
+
+    async selectSort(optionValue) {
+  await this.sortDropdown.selectOption(optionValue);
+}
+
+    async getNames() {
+  return await this.page.locator('.inventory_item_name').allTextContents();
+}
+
+    async waitForPage() {
+await this.page.waitForSelector('.product_sort_container', {
+    state: 'visible'
+  });
+}
+
 }
 
 module.exports = InventoryPage;

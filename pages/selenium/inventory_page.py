@@ -1,10 +1,30 @@
 from selenium.webdriver.common.by import By
-
+from selenium.webdriver.support.ui import Select
 
 class InventoryPage:
 
+    SORT_DROPDOWN = (By.CLASS_NAME, "product_sort_container")
+
     def __init__(self, driver):
         self.driver = driver
+
+    SORT_DROPDOWN = (By.CLASS_NAME, "product_sort_container")
+
+    PRODUCT_NAMES = (By.CLASS_NAME, "inventory_item_name")
+    PRODUCT_PRICES = (By.CLASS_NAME, "inventory_item_price")
+
+    # Sorting
+    def select_sort(self, option_text):
+        select = Select(self.driver.find_element(*self.SORT_DROPDOWN))
+        select.select_by_visible_text(option_text)
+
+    def get_product_names(self):
+        elements = self.driver.find_elements(*self.PRODUCT_NAMES)
+        return [e.text for e in elements]
+    
+    def get_product_prices(self):
+        elements = self.driver.find_elements(*self.PRODUCT_PRICES)
+        return [float(e.text.replace("$", "")) for e in elements]
 
     # Locators
     ITEMS = (By.CLASS_NAME, "inventory_item")
@@ -46,3 +66,6 @@ class InventoryPage:
     # Validation
     def is_on_inventory_page(self):
         return "inventory" in self.driver.current_url
+
+    
+    
