@@ -1,5 +1,3 @@
-[Login Observation]
-
 # OBS-LOGIN-001
 
 ## 목적
