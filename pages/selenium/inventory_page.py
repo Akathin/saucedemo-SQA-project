@@ -67,5 +67,17 @@ class InventoryPage:
     def is_on_inventory_page(self):
         return "inventory" in self.driver.current_url
 
-    
+    def clickFirstAddButton(self):
+
+        self.driver.find_element(
+            By.CSS_SELECTOR,
+            "button.btn_inventory"
+        ).click()
+        
+    def clickCart(self):
+
+        self.driver.find_element(
+            By.CLASS_NAME,
+            "shopping_cart_link"
+        ).click()
     

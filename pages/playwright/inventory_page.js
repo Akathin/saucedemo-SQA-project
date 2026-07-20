@@ -66,6 +66,24 @@ await this.page.waitForSelector('.product_sort_container', {
   });
 }
 
+async clickFirstAddButton(){
+
+    await this.page
+        .locator("button.btn_inventory")
+        .first()
+        .click();
+
+}
+
+
+async clickCart(){
+
+    await this.page
+        .locator(".shopping_cart_link")
+        .click();
+
+}
+
 }
 
 module.exports = InventoryPage;
